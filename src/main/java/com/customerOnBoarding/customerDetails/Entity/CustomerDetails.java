@@ -65,9 +65,9 @@ public class CustomerDetails {
     @Column(name = "id_proof_type")
     private String idProofType;
 
-  /*  @Column(name = "security_questions_id")
+    @Column(name = "security_questions_id")
     private int securityQuestoinsid;
-*/
+
     @Column(name = "security_questyion_answer")
     private String securityQuestionsAnswer;
 
@@ -126,13 +126,13 @@ public class CustomerDetails {
         this.idProofType = idProofType;
     }
 
-   /* public int getSecurityQuestoinsid() {
+    public int getSecurityQuestoinsid() {
         return securityQuestoinsid;
     }
 
     public void setSecurityQuestoinsid(int securityQuestoinsid) {
         this.securityQuestoinsid = securityQuestoinsid;
-    }*/
+    }
 
     public String getSecurityQuestionsAnswer() {
         return securityQuestionsAnswer;
