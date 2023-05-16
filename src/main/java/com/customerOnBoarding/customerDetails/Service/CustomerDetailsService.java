@@ -17,13 +17,12 @@ public class CustomerDetailsService {
     CustomerDetailsRepo customerDetailsRepo;
 
     @Autowired
-
     ModelMapper modelMapper;
 
     @Autowired
     Status accountStatus;
 
-    //method to create onboard a customer with details
+    //method to  onboard a customer with required information
     public Status customerOnBoarding(CustomerDetails customerDetailsDto) {
         Optional<CustomerDetails> getPanByCustomerId = Optional.ofNullable(customerDetailsRepo.findUserByPanNumber(customerDetailsDto.getPanNumber()));
 
@@ -32,35 +31,6 @@ public class CustomerDetailsService {
             if (getPanByCustomerId.isEmpty()) {
 
                 CustomerDetails customerDetails = this.customerDetailsDtoToCustomerDetails(customerDetailsDto);
-
-    Status accountStatus;
-
-    //method to create onboard a customer with details
-    public Status customerOnBoarding(CustomerDetails customerDetailsInput) {
-        Optional<CustomerDetails> getPanByCustomerId = Optional.ofNullable(customerDetailsRepo.findUserByPanNumber(customerDetailsInput.getPanNumber()));
-
-
-        try {
-            if (!getPanByCustomerId.isPresent()) {
-
-                CustomerDetails customerDetails = new CustomerDetails();
-
-                customerDetails.setFullName(customerDetailsInput.getFullName());
-                customerDetails.setPhoneNumber(customerDetailsInput.getPhoneNumber());
-                customerDetails.setPanNumber(customerDetailsInput.getPanNumber());
-                customerDetails.setAadharNumber(customerDetailsInput.getAadharNumber());
-                customerDetails.setAddress(customerDetailsInput.getAddress());
-                customerDetails.setEmail(customerDetailsInput.getEmail());
-                customerDetails.setActive(customerDetailsInput.getActive());
-                customerDetails.setAddressProof(customerDetailsInput.getAddressProof());
-                customerDetails.setAddressProofType(customerDetailsInput.getAddressProofType());
-                customerDetails.setIdProof(customerDetailsInput.getIdProof());
-                customerDetails.setIdProofType(customerDetailsInput.getIdProofType());
-                customerDetails.setCreatedBy(customerDetailsInput.getCreatedBy());
-                customerDetails.setCreatedDate(customerDetailsInput.getCreatedDate());
-                customerDetails.setUpdatedBy(customerDetailsInput.getUpdatedBy());
-                customerDetails.setUpdatedDate(customerDetailsInput.getUpdatedDate());
-
 
                 customerDetailsRepo.save(customerDetails);
 
@@ -76,13 +46,13 @@ public class CustomerDetailsService {
         return accountStatus;
     }
 
-
     //modelMapper for postMethod for customerOnBoarding
     public CustomerDetails customerDetailsDtoToCustomerDetails(CustomerDetails customerDetailsDto) {
         CustomerDetails customerDetails = this.modelMapper.map(customerDetailsDto, CustomerDetails.class);
         return customerDetails;
 
     }
+
     //method to get customerDetails by customerId
     public Optional<CustomerDetails> getCustomerByCustomerId(Long customerId) {
         return customerDetailsRepo.findById(customerId);
@@ -96,11 +66,7 @@ public class CustomerDetailsService {
 
     //method to delete customer by customerId
     public Status deleteCustomerById(Long customerId) {
-
         if (isAccountExist(customerId)) {
-
-        if (isAccountExsist(customerId)) {
-
             customerDetailsRepo.deleteById(customerId);
 
             accountStatus.setStatus("Success");
@@ -116,6 +82,7 @@ public class CustomerDetailsService {
 
     //method to update a customerDetails by customerId
     public CustomerDetails updateCustomerDetails(CustomerDetails customerDetails, Long customerId) {
+
         CustomerDetails existingCustomer = customerDetailsRepo.findById(customerId).orElse(null);
 
 
@@ -133,27 +100,9 @@ public class CustomerDetailsService {
 
     }
 
+    //method to check whether the user is already exist in database
     public boolean isAccountExist(Long customerId) {
         boolean isExist = false;
-
-        CustomerDetails exsistingCustomer = customerDetailsRepo.findById(customerId).orElse(null);
-
-        exsistingCustomer.setFullName(customerDetails.getFullName());
-        exsistingCustomer.setPanNumber(customerDetails.getPanNumber());
-        exsistingCustomer.setPhoneNumber(customerDetails.getPhoneNumber());
-        exsistingCustomer.setAadharNumber(customerDetails.getAadharNumber());
-        exsistingCustomer.setAddress(customerDetails.getAddress());
-        exsistingCustomer.setDateOfBirth(customerDetails.getDateOfBirth());
-        exsistingCustomer.setEmail(customerDetails.getEmail());
-        customerDetailsRepo.save(exsistingCustomer);
-        return exsistingCustomer;
-
-
-    }
-
-    public boolean isAccountExsist(Long customerId) {
-        boolean isExsist = false;
-
         CustomerDetails customerDetails;
         try {
             customerDetails = customerDetailsRepo.findByCustomerId(customerId).orElse(null);
@@ -162,15 +111,9 @@ public class CustomerDetailsService {
             throw new RuntimeException(e);
         }
         if (customerDetails != null) {
-
             isExist = true;
         }
         return isExist;
-
-            isExsist = true;
-        }
-        return isExsist;
-
     }
 
 
