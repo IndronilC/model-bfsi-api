@@ -91,7 +91,6 @@ public class CustomerDetailsService {
         existingCustomer.setPhoneNumber(customerDetails.getPhoneNumber());
         existingCustomer.setAadharNumber(customerDetails.getAadharNumber());
         existingCustomer.setAddress(customerDetails.getAddress());
-        /* existingCustomer.setDateOfBirth(customerDetails.getDateOfBirth());*/
         existingCustomer.setEmail(customerDetails.getEmail());
 
 

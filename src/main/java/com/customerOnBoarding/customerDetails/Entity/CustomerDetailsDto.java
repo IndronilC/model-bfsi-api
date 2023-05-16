@@ -21,7 +21,6 @@ public class CustomerDetailsDto {
 
     private String address;
 
-    /*private String dateOfBirth;*/
 
     private String email;
 

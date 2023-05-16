@@ -1,7 +1,6 @@
 package com.customerOnBoarding.customerDetails.Controller;
 
 
-import com.customerOnBoarding.customerDetails.Entity.CustomerDetailsDto;
 import com.customerOnBoarding.customerDetails.Entity.Status;
 import com.customerOnBoarding.customerDetails.Entity.CustomerDetails;
 import com.customerOnBoarding.customerDetails.Service.CustomerDetailsService;
