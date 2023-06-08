@@ -1,5 +1,6 @@
 package com.customerOnBoarding.customerDetails.Service;
 
+import com.customerOnBoarding.customerDetails.Entity.CustomerDetailsDto;
 import com.customerOnBoarding.customerDetails.Entity.Status;
 import com.customerOnBoarding.customerDetails.Entity.CustomerDetails;
 import com.customerOnBoarding.customerDetails.Repository.CustomerDetailsRepo;
@@ -22,32 +23,21 @@ public class CustomerDetailsService {
     @Autowired
     Status accountStatus;
 
-    //method to  onboard a customer with required information
-    public Status customerOnBoarding(CustomerDetails customerDetailsDto) {
-        Optional<CustomerDetails> getPanByCustomerId = Optional.ofNullable(customerDetailsRepo.findUserByPanNumber(customerDetailsDto.getPanNumber()));
-
+    //method to create onboard a customer with details
+    public CustomerDetails customerOnBoarding(CustomerDetails customerDetails) {
+        Optional<CustomerDetails> getPanByCustomerId = Optional.ofNullable(customerDetailsRepo.findUserByPanNumber(customerDetails.getPanNumber()));
 
         try {
-            if (getPanByCustomerId.isEmpty()) {
 
-                CustomerDetails customerDetails = this.customerDetailsDtoToCustomerDetails(customerDetailsDto);
-
-                customerDetailsRepo.save(customerDetails);
-
-                accountStatus.setStatus("Success");
-                accountStatus.setStatusMessage("Account created successfully");
-            } else {
-                accountStatus.setStatus("failure");
-                accountStatus.setStatusMessage("Aadhaar number ia already exist");
-            }
+            customerDetailsRepo.save(customerDetails);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return accountStatus;
+        return customerDetails;
     }
 
     //modelMapper for postMethod for customerOnBoarding
-    public CustomerDetails customerDetailsDtoToCustomerDetails(CustomerDetails customerDetailsDto) {
+    public CustomerDetails customerDetailsDtoToCustomerDetails(CustomerDetailsDto customerDetailsDto) {
         CustomerDetails customerDetails = this.modelMapper.map(customerDetailsDto, CustomerDetails.class);
         return customerDetails;
 
@@ -65,26 +55,16 @@ public class CustomerDetailsService {
     }
 
     //method to delete customer by customerId
-    public Status deleteCustomerById(Long customerId) {
-        if (isAccountExist(customerId)) {
-            customerDetailsRepo.deleteById(customerId);
+    public void deleteCustomerById(Long customerId) {
 
-            accountStatus.setStatus("Success");
-            accountStatus.setStatusMessage("Account with customerId:" + customerId + " " + "is deleted");
-        } else {
-            accountStatus.setStatus("failure");
-            accountStatus.setStatusMessage("Account with customerId:" + customerId + " " + "doesn't exist");
-        }
+        customerDetailsRepo.deleteById(customerId);
 
-
-        return accountStatus;
     }
 
     //method to update a customerDetails by customerId
     public CustomerDetails updateCustomerDetails(CustomerDetails customerDetails, Long customerId) {
 
         CustomerDetails existingCustomer = customerDetailsRepo.findById(customerId).orElse(null);
-
 
         existingCustomer.setFullName(customerDetails.getFullName());
         existingCustomer.setPanNumber(customerDetails.getPanNumber());
@@ -99,21 +79,7 @@ public class CustomerDetailsService {
 
     }
 
-    //method to check whether the user is already exist in database
-    public boolean isAccountExist(Long customerId) {
-        boolean isExist = false;
-        CustomerDetails customerDetails;
-        try {
-            customerDetails = customerDetailsRepo.findByCustomerId(customerId).orElse(null);
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        if (customerDetails != null) {
-            isExist = true;
-        }
-        return isExist;
-    }
 
 
 }

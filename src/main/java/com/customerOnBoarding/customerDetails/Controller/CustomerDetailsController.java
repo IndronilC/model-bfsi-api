@@ -1,6 +1,7 @@
 package com.customerOnBoarding.customerDetails.Controller;
 
 
+import com.customerOnBoarding.customerDetails.Entity.CustomerDetailsDto;
 import com.customerOnBoarding.customerDetails.Entity.Status;
 import com.customerOnBoarding.customerDetails.Entity.CustomerDetails;
 import com.customerOnBoarding.customerDetails.Service.CustomerDetailsService;
@@ -19,35 +20,33 @@ public class CustomerDetailsController {
     @Autowired
     CustomerDetailsService customerDetailsService;
 
-    @PostMapping(value = {"/createCustomer"})
-    public Status viewCustomer(@RequestBody CustomerDetails customerDetailsDto) {
-        return customerDetailsService.customerOnBoarding(customerDetailsDto);
-
-
-    }
-
-
-    @GetMapping(value = {"/id"})
-    public Optional<CustomerDetails> getById(@RequestBody CustomerDetails customerDetails) {
-        return customerDetailsService.getCustomerByCustomerId(customerDetails.getCustomerId());
+    @PostMapping(value = {"/createCustomer"} /*,method=RequestMethod.POST*/)
+    public CustomerDetails viewCustomer(@RequestBody CustomerDetails customerDetails) {
+        return customerDetailsService.customerOnBoarding(customerDetails);
 
     }
 
-    @GetMapping(value = {"/allCustomerDetails"})
+    @GetMapping(value = {"/id"}/*,method = RequestMethod.GET*/)
+    public Optional<CustomerDetails> getById(@PathVariable Long customerId) {
+        return customerDetailsService.getCustomerByCustomerId(customerId);
+
+    }
+
+    @GetMapping(value = {"/allCustomerDetails"}/*,method = RequestMethod.GET*/)
     public List<CustomerDetails> getAllCustomerDetails() {
         return customerDetailsService.getAllCustomerDetails();
     }
 
-    @DeleteMapping(value = {"/deleteCustomerBy/{id}"})
-    public Status deleteCustomerById(@PathVariable("id") Long customerId) {
+    @DeleteMapping(value = {"/deleteCustomerBy/{id}"}/*, method=RequestMethod.DELETE*/)
+    public void deleteCustomerById(@PathVariable Long customerId) {
 
-        return customerDetailsService.deleteCustomerById(customerId);
+        customerDetailsService.deleteCustomerById(customerId);
     }
 
-    @RequestMapping(value = {"/customerDetails/{id}"})
+    @PutMapping(value = {"/customerDetails/{id}"})
     public CustomerDetails updateCustomerDetailsById(@RequestBody CustomerDetails customerDetails,
                                                      @PathVariable("id") Long customerId) {
-        return customerDetailsService.updateCustomerDetails(customerDetails, customerId);
+        return customerDetailsService.updateCustomerDetails(customerDetails, customerId);//.getBody();
     }
 
 

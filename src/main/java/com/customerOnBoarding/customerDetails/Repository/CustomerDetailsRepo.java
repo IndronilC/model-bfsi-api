@@ -10,5 +10,5 @@ public interface CustomerDetailsRepo extends JpaRepository<CustomerDetails,Long>
 
     CustomerDetails findUserByPanNumber(String panNumber);
 
-    Optional<CustomerDetails> findByCustomerId(Long customerId);
+    //Optional<CustomerDetails> findByCustomerId(Long customerId);
 }

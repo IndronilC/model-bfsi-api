@@ -2,11 +2,13 @@ package com.customerOnBoarding.customerDetails.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -19,53 +21,40 @@ public class CustomerDetails {
     @Column(name = "customer_id")
     private long customerId;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name",nullable = false)
     private String fullName;
 
-    @Column(name = "pan_number")
+    @Column(name = "pan_number",nullable = false)
     private String panNumber;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",nullable = false)
     private String phoneNumber;
 
-    @Column(name = "aadhar_number")
+    @Column(name = "aadhar_number",nullable = false)
     private String aadharNumber;
 
-    @Column(name = "address")
+    @Column(name = "address",nullable = false)
     private String address;
 
+    @Column(name = "dob",nullable = false)
+    private String dateOfBirth;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String email;
 
-    @Column(name = "active")
+    @Column(name = "active",nullable = false)
     private int active;
 
-    @Column(name = "address_proof")
-    private String addressProof;
-
-    @Column(name = "address_proof_type")
-    private String addressProofType;
-
-    @Column(name = "id_proof")
-    private String idProof;
-
-    @Column(name = "id_proof_type")
-    private String idProofType;
-
-    @Column(name = "security_question_answer")
-    private String securityQuestionsAnswer;
-
-    @Column(name = "created_by")
+    @Column(name = "created_by",nullable = false)
     private String createdBy;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date",nullable = false)
     private String createdDate;
 
-    @Column(name = "updated_by")
+    @Column(name = "updated_by",nullable = false)
     private String updatedBy;
 
-    @Column(name = "updated_date")
+    @Column(name = "updated_date",nullable = false)
     private String updatedDate;
 
 }

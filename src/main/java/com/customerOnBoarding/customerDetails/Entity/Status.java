@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Status {
-    String Status;
-    String StatusMessage;
+    String status;
+    String statusMessage;
 }
+
