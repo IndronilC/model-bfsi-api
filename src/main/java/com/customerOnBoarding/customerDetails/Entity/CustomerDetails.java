@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 public class CustomerDetails {
 
     @Id
-    @GeneratedValue(generator = "mySeqGen", strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 10001, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 10001, allocationSize = 1)
     @Column(name = "customer_id")
     private long customerId;
 
@@ -44,6 +44,24 @@ public class CustomerDetails {
 
     @Column(name = "active",nullable = false)
     private int active;
+
+    @Column(name = "address_proof")
+    private String addressProof;
+
+    @Column(name = "address_proof_type")
+    private String addressProofType;
+
+    @Column(name = "id_proof")
+    private String idProof;
+
+    @Column(name = "id_proof_type")
+    private String idProofType;
+/*
+    @Column(name = "security_questions_id")♦
+    private int securityQuestionsId;*/
+
+    @Column(name = "security_question_answer")
+    private String securityQuestionsAnswer;
 
     @Column(name = "created_by",nullable = false)
     private String createdBy;

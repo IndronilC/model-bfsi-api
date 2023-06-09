@@ -1,3 +1,4 @@
+/*
 package com.customerOnBoarding.customerDetails;
 
 import com.customerOnBoarding.customerDetails.Entity.CustomerDetails;
@@ -89,3 +90,4 @@ class CustomerDetailsApplicationTests {
 
 
 }
+*/

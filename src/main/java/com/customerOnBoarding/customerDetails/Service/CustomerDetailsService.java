@@ -25,7 +25,7 @@ public class CustomerDetailsService {
 
     //method to create onboard a customer with details
     public CustomerDetails customerOnBoarding(CustomerDetails customerDetails) {
-        Optional<CustomerDetails> getPanByCustomerId = Optional.ofNullable(customerDetailsRepo.findUserByPanNumber(customerDetails.getPanNumber()));
+        //Optional<CustomerDetails> getPanByCustomerId = Optional.ofNullable(customerDetailsRepo.findUserByPanNumber(customerDetails.getPanNumber()));
 
         try {
 
