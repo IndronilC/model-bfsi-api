@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Table(name = "customer_details", schema = "userdetails")
 public class CustomerDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 10001, allocationSize = 1)
-    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeqGen")
+    @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 10001, allocationSize = 1)
+    @Column(name = "customer_id", nullable = false)
     private long customerId;
 
     @Column(name = "full_name",nullable = false)

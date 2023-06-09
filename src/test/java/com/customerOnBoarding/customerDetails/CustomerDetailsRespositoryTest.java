@@ -7,12 +7,14 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CustomerDetailsRespositoryTest {
     @Autowired
     private   CustomerDetailsRepo customerDetailsRepo;
@@ -21,8 +23,10 @@ public class CustomerDetailsRespositoryTest {
 
     @BeforeEach
     public void setup(){
+        // delete the data from customr details table before each test run
+        customerDetailsRepo.deleteAll();
         customerDetails = CustomerDetails.builder()
-                .customerId(1L)
+               // .customerId(1L)
                 .fullName("damodharReddy")
                 .panNumber("BWYPC3344A")
                 .phoneNumber("9121696362")
@@ -42,24 +46,8 @@ public class CustomerDetailsRespositoryTest {
 
     @Test
     public void customerOnboarding_test(){
-        CustomerDetails customerDetails1 = CustomerDetails.builder()
-                .customerId(2L)
-                .fullName("shambhavi")
-                .panNumber("BWYPC3344B")
-                .phoneNumber("9121696363")
-                .aadharNumber("123412341235")
-                .address("mysore")
-                .dateOfBirth("08-09-2001")
-                .email("shambu@gmail.com")
-                .active(1)
-                .createdBy("shambu")
-                .createdDate("01-05-2023")
-                .updatedBy("shambu")
-                .updatedDate("07-06-2023")
-                .build();
-
         //operation we are going to test
-        CustomerDetails savedCustomer=customerDetailsRepo.save(customerDetails1);
+        CustomerDetails savedCustomer=customerDetailsRepo.save(customerDetails);
 
         //then verifying the output
         assertThat(savedCustomer).isNotNull();
@@ -70,23 +58,7 @@ public class CustomerDetailsRespositoryTest {
 
     @Test
     public void getAllCustomersTest(){
-        CustomerDetails customerDetails1 = CustomerDetails.builder()
-                .customerId(2L)
-                .fullName("shambhavi")
-                .panNumber("BWYPC3344B")
-                .phoneNumber("9121696363")
-                .aadharNumber("123412341235")
-                .address("mysore")
-                .dateOfBirth("08-09-2001")
-                .email("shambu@gmail.com")
-                .active(1)
-                .createdBy("shambu")
-                .createdDate("01-05-2023")
-                .updatedBy("shambu")
-                .updatedDate("07-06-2023")
-                .build();
-        //customerDetailsRepo.save(customerDetails);
-        customerDetailsRepo.save(customerDetails1);
+        customerDetailsRepo.save(customerDetails);
 
         List<CustomerDetails> customerDetailsList = customerDetailsRepo.findAll();
         assertThat(customerDetailsList).isNotNull();
