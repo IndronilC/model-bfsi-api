@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
@@ -17,16 +16,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CustomerDetailsRespositoryTest {
     @Autowired
-    private   CustomerDetailsRepo customerDetailsRepo;
+    private CustomerDetailsRepo customerDetailsRepo;
 
     private CustomerDetails customerDetails;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         // delete the data from customr details table before each test run
         customerDetailsRepo.deleteAll();
         customerDetails = CustomerDetails.builder()
-               // .customerId(1L)
+                // .customerId(1L)
                 .fullName("damodharReddy")
                 .panNumber("BWYPC3344A")
                 .phoneNumber("9121696362")
@@ -45,9 +44,9 @@ public class CustomerDetailsRespositoryTest {
 
 
     @Test
-    public void customerOnboarding_test(){
+    public void customerOnboarding_test() {
         //operation we are going to test
-        CustomerDetails savedCustomer=customerDetailsRepo.save(customerDetails);
+        CustomerDetails savedCustomer = customerDetailsRepo.save(customerDetails);
 
         //then verifying the output
         assertThat(savedCustomer).isNotNull();
@@ -56,7 +55,7 @@ public class CustomerDetailsRespositoryTest {
     }
 
     @Test
-    public void getAllCustomersTest(){
+    public void getAllCustomersTest() {
         customerDetailsRepo.save(customerDetails);
 
         List<CustomerDetails> customerDetailsList = customerDetailsRepo.findAll();
